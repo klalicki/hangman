@@ -1,0 +1,17 @@
+{
+  "name": "hangman",
+  "version": "1.0.0",
+  "engine": {
+    "node": "16.17.1"
+  },
+  "type": "module",
+  "main": "index.js",
+  "author": "Kristoff Lalicki",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/klalicki/hangman.git"
+  },
+  "dependencies": {
+    "readline-sync": "^1.4.10"
+  }
+}
