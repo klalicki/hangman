@@ -13,3 +13,23 @@ const selectWordFrom = (wordList = wordBank) => {
 };
 
 console.log(selectWordFrom());
+
+/* 
+choose a word from the list
+create an empty list of guessed letters
+while the number of guesses < max number of guesses allowed{
+--display the current guesses and status
+--until a valid letter is given{
+-- -- ask for a letter
+-- -- check to make sure it's actually a letter
+-- -- check to see if it's been guessed already
+--}
+-- add the letter to the list of guessed letters
+--is the letter in the word?
+--yes:
+-- -- reveal the letter in the word
+-- -- 
+--no:
+----add 1 to number of guesses
+}
+*/
