@@ -15,21 +15,46 @@ const selectWordFrom = (wordList = wordBank) => {
 console.log(selectWordFrom());
 
 /* 
-choose a word from the list
+select a word from the list
 create an empty list of guessed letters
-while the number of guesses < max number of guesses allowed{
---display the current guesses and status
---until a valid letter is given{
--- -- ask for a letter
--- -- check to make sure it's actually a letter
--- -- check to see if it's been guessed already
---}
--- add the letter to the list of guessed letters
---is the letter in the word?
---yes:
--- -- reveal the letter in the word
--- -- 
---no:
-----add 1 to number of guesses
+set up an object to track which letters are revealed:
+maybe
+const wordObject={
+  word:'happen'
+  letters:{
+  'H':{indices:[0],hidden:true},
+  'A':{indices:[1],hidden:true},
+  'P':{indices:[2,3],hidden:true},
+  'E':{indices:[4],hidden:true},
+  'N':{indices:[5],hidden:true},
+  }
 }
+to check if it contains letter
+  if (wordObject.word.includes(letter))
+  {
+  wordObject.letters[letter].hidden=false
+  }
+to render 
+  let lettersArray=wordObject.word.split('');
+  for each item in lettersArray{
+    if wordObject.letters[item].hidden{
+      lettersArray[index]="-"
+    }
+  }
+  lettersArray.join('')
+  
+  }
+
+WHILE guesses < guesses allowed
+  display the current guesses and status
+  until a valid letter is given (WHILE)
+      ask for a letter
+      check to make sure it's actually a letter
+      check to see if it's been guessed already
+   add the letter to the list of guessed letters
+  is the letter in the word (IF)?
+    YES:
+      reveal the letter in the word 
+    NO:
+      add 1 to number of guesses
 */
