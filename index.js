@@ -90,31 +90,9 @@ const renderGameData = () => {
   console.log(`word so far: ${gameData.displayLetters}`);
   console.log(`letters guessed so far: ${gameData.guessedLetters}`);
 };
-/* 
-select a word from the list   
-reset the number of guesses remaining   
-create an array containing the letters of the word  
-create an array of the rendered letters [_,_,_,...] 
-create an empty array of guessed letters (to be able to check if a letter has been guessed already)
 
-WHILE guesses remaining > 0 
-  display the current guesses and status (render function)
-  until a valid letter is given (WHILE)
-      ask for a letter
-      check to make sure it's actually a letter
-      check to see if it's been guessed already
-   add the letter to the list of guessed letters
-  is the letter in the word (IF)?
-    YES:
-      reveal the letter in the word 
-    NO:
-      subtract 1 from remaining guesses
-
-
-
-    
-*/
 let gameData;
+
 /**
  * executes a round of the game.
  */
@@ -142,7 +120,7 @@ const runGame = () => {
   //game is over! check if the player has won or lost
   if (gameData.displayLetters.includes("_")) {
     //player has lost.
-    console.log("you lost, srry.");
+    console.log("you lost, sorry.");
   } else {
     console.log("congrats! you win :)");
   }
