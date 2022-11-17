@@ -45,12 +45,13 @@ const checkLetter = (letter) => {
 
 /**
  * Loops through the word and reveals the letter that was passed to it.
+ * This function edits the gameData object, and does not return anything.
  * @param letter - the letter that was guessed
  */
 const revealLetter = (letter) => {
   gameData.letters.forEach((wordLetter, index) => {
     if (wordLetter === letter) {
-      displayLetters[index] = wordLetter;
+      gameData.displayLetters[index] = wordLetter;
     }
   });
 };
@@ -67,15 +68,11 @@ const generateGameData = () => {
   const displayLetters = letters.map(() => {
     return "_";
   });
-  return { word, wordLength, letters, displayLetters };
+  return { word, wordLength, letters, displayLetters, guessesRemaining };
 };
-const gameData = generateGameData();
-console.table(gameData);
-
 const renderGameData = () => {
   console.log(`remaining guesses: ${gameData.guessesRemaining}`);
   console.log(`word so far: ${gameData.displayLetters}`);
-  console.log(`letters you've guessed so far: `);
 };
 /* 
 select a word from the list   
@@ -98,11 +95,33 @@ WHILE guesses remaining > 0
       subtract 1 from remaining guesses
 
 
+
+    
 */
-/* 
-   ╠🌸
-   ║
- 🌸╬
-   ║
-*/
-console.log("  ╠🌸❃");
+let gameData;
+/**
+ * executes a round of the game.
+ */
+const runGame = () => {
+  //generate the gameData object
+  gameData = generateGameData();
+  console.log(gameData.word);
+
+  // main game loop - repeats as long as there are guesses remaining and letters to be guessed.
+  while (
+    gameData.guessesRemaining > 0 &&
+    gameData.displayLetters.includes("_")
+  ) {
+    renderGameData();
+    const roundLetter = inputLetter();
+    if (checkLetter(roundLetter)) {
+      console.log("correct!");
+      revealLetter(roundLetter);
+    } else {
+      console.log("incorrect!");
+      gameData.guessesRemaining--;
+    }
+  }
+};
+
+runGame();
