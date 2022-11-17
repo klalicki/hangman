@@ -2,51 +2,90 @@ import prompt from "readline-sync";
 import wordBank from "./word-bank.js";
 
 /**
- * Select a random word from the word list.
- * @param [wordList] - an array of words to choose from.
- * @returns A random word from the given array.
- * If no wordList is provided, this will default to the imported wordbank.
+ * Select a random word from the wordBank array and return it.
+ * @returns A random word from the wordBank array.
  */
-const selectWordFrom = (wordList = wordBank) => {
-  const wordIndex = Math.floor(Math.random() * wordList.length);
-  return wordList[wordIndex];
+const selectWord = () => {
+  const wordIndex = Math.floor(Math.random() * wordBank.length);
+  return wordBank[wordIndex];
 };
 
-console.log(selectWordFrom());
-
-/* 
-select a word from the list
-create an empty list of guessed letters
-set up an object to track which letters are revealed:
-maybe
-const wordObject={
-  word:'happen'
-  letters:{
-  'H':{indices:[0],hidden:true},
-  'A':{indices:[1],hidden:true},
-  'P':{indices:[2,3],hidden:true},
-  'E':{indices:[4],hidden:true},
-  'N':{indices:[5],hidden:true},
-  }
-}
-to check if it contains letter
-  if (wordObject.word.includes(letter))
-  {
-  wordObject.letters[letter].hidden=false
-  }
-to render 
-  let lettersArray=wordObject.word.split('');
-  for each item in lettersArray{
-    if wordObject.letters[item].hidden{
-      lettersArray[index]="-"
+/**
+ * prompts the user to input a letter, and if the input is not a letter, prompts the user to
+ * input a letter again. Returns the lowercase of that letter
+ * @returns A function that takes no arguments and returns a string.
+ */
+const inputLetter = () => {
+  let isValidInput = false;
+  let input;
+  while (!isValidInput) {
+    input = prompt.question("Please enter a letter: ", {});
+    //validate input
+    // test to make sure the input only contains letters
+    if (!/[A-Za-z]/.test(input)) {
+      console.log("Invalid input: please input a letter");
+      //test to make sure only one
+    } else if (input.length != 1) {
+      console.log("Invalid input: please input a letter");
+    } else {
+      return input.toLowerCase();
     }
   }
-  lettersArray.join('')
-  
-  }
+  return input.toLowerCase();
+};
 
-WHILE guesses < guesses allowed
-  display the current guesses and status
+/**
+ * Checks to see if a letter is part of the word, returns a boolean.
+ * @param letter - The letter that the user typed.
+ * @returns A boolean value.
+ */
+const checkLetter = (letter) => {
+  return gameData.letters.includes(letter);
+};
+
+/**
+ * Loops through the word and reveals the letter that was passed to it.
+ * @param letter - the letter that was guessed
+ */
+const revealLetter = (letter) => {
+  gameData.letters.forEach((wordLetter, index) => {
+    if (wordLetter === letter) {
+      displayLetters[index] = wordLetter;
+    }
+  });
+};
+
+/**
+ * Generates an object containing all the data for the current round.
+ * @returns An object
+ */
+const generateGameData = () => {
+  const guessesRemaining = 6;
+  const word = selectWord();
+  const wordLength = word.length;
+  const letters = word.split("");
+  const displayLetters = letters.map(() => {
+    return "_";
+  });
+  return { word, wordLength, letters, displayLetters };
+};
+const gameData = generateGameData();
+console.table(gameData);
+
+const renderGameData = () => {
+  console.log(`remaining guesses: ${gameData.guessesRemaining}`);
+  console.log(`word so far: ${gameData.displayLetters}`);
+  console.log(`letters you've guessed so far: `);
+};
+/* 
+select a word from the list   
+reset the number of guesses remaining   
+create an array containing the letters of the word  
+create an array of the rendered letters [_,_,_,...] 
+create an empty array of guessed letters (to be able to check if a letter has been guessed already)
+
+WHILE guesses remaining > 0 
+  display the current guesses and status (render function)
   until a valid letter is given (WHILE)
       ask for a letter
       check to make sure it's actually a letter
@@ -56,5 +95,14 @@ WHILE guesses < guesses allowed
     YES:
       reveal the letter in the word 
     NO:
-      add 1 to number of guesses
+      subtract 1 from remaining guesses
+
+
 */
+/* 
+   ╠🌸
+   ║
+ 🌸╬
+   ║
+*/
+console.log("  ╠🌸❃");
