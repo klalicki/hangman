@@ -122,6 +122,13 @@ const runGame = () => {
       gameData.guessesRemaining--;
     }
   }
+  //game is over! check if the player has won or lost
+  if (gameData.displayLetters.includes("_")) {
+    //player has lost.
+    console.log("you lost, srry.");
+  } else {
+    console.log("congrats! you win :)");
+  }
 };
 
 runGame();
