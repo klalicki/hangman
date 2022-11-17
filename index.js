@@ -19,27 +19,33 @@ const inputLetter = () => {
   let isValidInput = false;
   let input;
   while (!isValidInput) {
-    input = prompt.question("Please enter a letter: ", {});
+    input = prompt.question("Please enter a letter: ", {}).toLowerCase();
     //validate input
     // test to make sure the input only contains letters
     if (!/[A-Za-z]/.test(input)) {
       console.log("Invalid input: please input a letter");
-      //test to make sure only one
+      //test to make sure only one letter
     } else if (input.length != 1) {
       console.log("Invalid input: please input a letter");
+      //test to see if the letter has been guessed already
+    } else if (gameData.guessedLetters.includes(input)) {
+      console.log(`You have already guessed ${input}. Try a different letter.`);
     } else {
-      return input.toLowerCase();
+      return input;
     }
   }
   return input.toLowerCase();
 };
 
 /**
- * Checks to see if a letter is part of the word, returns a boolean.
+ * Checks to see if a letter is part of the word, returns a boolean. Add the letter to the list of guesses, sort that list.
  * @param letter - The letter that the user typed.
  * @returns A boolean value.
  */
 const checkLetter = (letter) => {
+  //add letter to the guesses list
+  gameData.guessedLetters.push(letter);
+  gameData.guessedLetters.sort();
   return gameData.letters.includes(letter);
 };
 
@@ -65,14 +71,24 @@ const generateGameData = () => {
   const word = selectWord();
   const wordLength = word.length;
   const letters = word.split("");
+  const guessedLetters = [];
   const displayLetters = letters.map(() => {
     return "_";
   });
-  return { word, wordLength, letters, displayLetters, guessesRemaining };
+  return {
+    word,
+    wordLength,
+    letters,
+    displayLetters,
+    guessesRemaining,
+    guessedLetters,
+  };
 };
 const renderGameData = () => {
+  console.clear();
   console.log(`remaining guesses: ${gameData.guessesRemaining}`);
   console.log(`word so far: ${gameData.displayLetters}`);
+  console.log(`letters guessed so far: ${gameData.guessedLetters}`);
 };
 /* 
 select a word from the list   
@@ -114,6 +130,7 @@ const runGame = () => {
   ) {
     renderGameData();
     const roundLetter = inputLetter();
+
     if (checkLetter(roundLetter)) {
       console.log("correct!");
       revealLetter(roundLetter);
