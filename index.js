@@ -120,7 +120,7 @@ const runGame = () => {
   //game is over! check if the player has won or lost
   if (gameData.displayLetters.includes("_")) {
     //player has lost.
-    console.log("you lost, sorry.");
+    console.log(`you lost, sorry. the word was ${gameData.word}`);
   } else {
     console.log("congrats! you win :)");
   }
