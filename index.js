@@ -67,7 +67,7 @@ const revealLetter = (letter) => {
  * @returns An object
  */
 const generateGameData = () => {
-  const guessesRemaining = 6;
+  const livesRemaining = 6;
   const word = selectWord();
   const wordLength = word.length;
   const letters = word.split("");
@@ -80,14 +80,22 @@ const generateGameData = () => {
     wordLength,
     letters,
     displayLetters,
-    guessesRemaining,
+    livesRemaining,
     guessedLetters,
   };
 };
+
+/**
+ * this function renders the game interface, such as the number of lives remaining, list of letters guessed, etc
+ */
 const renderGameData = () => {
   console.clear();
-  console.log(`remaining guesses: ${gameData.guessesRemaining}`);
-  console.log(`word so far: ${gameData.displayLetters}`);
+  console.log(
+    `remaining lives: ${"❤ ".repeat(gameData.livesRemaining)}${"- ".repeat(
+      6 - gameData.livesRemaining
+    )}`
+  );
+  console.log(`word so far: ${gameData.displayLetters.join(" ")}`);
   console.log(`letters guessed so far: ${gameData.guessedLetters}`);
 };
 
@@ -102,10 +110,7 @@ const runGame = () => {
   console.log(gameData.word);
 
   // main game loop - repeats as long as there are guesses remaining and letters to be guessed.
-  while (
-    gameData.guessesRemaining > 0 &&
-    gameData.displayLetters.includes("_")
-  ) {
+  while (gameData.livesRemaining > 0 && gameData.displayLetters.includes("_")) {
     renderGameData();
     const roundLetter = inputLetter();
 
@@ -114,7 +119,7 @@ const runGame = () => {
       revealLetter(roundLetter);
     } else {
       console.log("incorrect!");
-      gameData.guessesRemaining--;
+      gameData.livesRemaining--;
     }
   }
   //game is over! check if the player has won or lost
@@ -122,7 +127,7 @@ const runGame = () => {
     //player has lost.
     console.log(`you lost, sorry. the word was ${gameData.word}`);
   } else {
-    console.log("congrats! you win :)");
+    console.log("congrats! you win! :)");
   }
 };
 
