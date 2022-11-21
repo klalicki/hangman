@@ -10,6 +10,14 @@ const selectWord = () => {
   return wordBank[wordIndex];
 };
 
+/** the WordGame class contains all of the logic needed to play a single round of hangman
+ * @property {number} livesRemaining  the number of lives remaining
+ * @property {string} word  the word being used for this game
+ * @property {number} wordLength  the length of the word - used internally for helper functions
+ * @property {array} letters  an array containing the game's word, split by character
+ * @property {array} guessedLetters an array containing every letter the player has guessed so far
+ * @property {array} displayLetters an array containing the letters to display each round - letters that have not been correctly guessed are represented by a "-"
+ */
 class WordGame {
   constructor(word, numberOfLives = 6) {
     this.livesRemaining = numberOfLives;
