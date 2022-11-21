@@ -16,7 +16,7 @@ const selectWord = () => {
  * @property {number} wordLength  the length of the word - used internally for helper functions
  * @property {array} letters  an array containing the game's word, split by character
  * @property {array} guessedLetters an array containing every letter the player has guessed so far
- * @property {array} displayLetters an array containing the letters to display each round - letters that have not been correctly guessed are represented by a "-"
+ * @property {array} displayLetters an array containing the letters to display each round - letters that have not been correctly guessed are represented by a "_"
  */
 class WordGame {
   constructor(word, numberOfLives = 6) {
@@ -116,14 +116,19 @@ class WordGame {
       //player has lost.
       console.log(`you lost, sorry. the word was ${this.word}`);
     } else {
+      this.render();
       console.log("congrats! you win! :)");
     }
   };
 }
 
 //
-console.log("Welcome to %cHangman", "color:red");
+console.log("Welcome to Hangman");
+prompt.keyIn("Press any key to begin.", {
+  hideEchoBack: true,
+  mask: "",
+});
 
 const word = selectWord();
 const game = new WordGame(word);
-// game.play();
+game.play();
