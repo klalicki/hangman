@@ -10,14 +10,7 @@ const selectWord = () => {
   return wordBank[wordIndex];
 };
 
-/** the WordGame class contains all of the logic needed to play a single round of hangman
- * @property {number} livesRemaining  the number of lives remaining
- * @property {string} word  the word being used for this game
- * @property {number} wordLength  the length of the word - used internally for helper functions
- * @property {array} letters  an array containing the game's word, split by character
- * @property {array} guessedLetters an array containing every letter the player has guessed so far
- * @property {array} displayLetters an array containing the letters to display each round - letters that have not been correctly guessed are represented by a "_"
- */
+/* the WordGame class contains all of the logic needed to play a single round of hangman */
 class WordGame {
   constructor(word, numberOfLives = 6) {
     this.livesRemaining = numberOfLives;
@@ -29,7 +22,7 @@ class WordGame {
       return "_";
     });
   }
-  /**
+  /*
    * this function renders the game interface, such as the number of lives remaining, list of letters guessed, etc
    */
   render() {
@@ -42,6 +35,7 @@ class WordGame {
     console.log(`word so far: ${this.displayLetters.join(" ")}`);
     console.log(`letters guessed so far: ${this.guessedLetters}`);
   }
+
   /**
    * prompts the user to input a letter, and if the input is not a letter, prompts the user to
    * input a letter again. Returns the lowercase of that letter
@@ -82,6 +76,7 @@ class WordGame {
       }
     });
   };
+
   /**
    * Checks to see if a letter is part of the word, returns a boolean. Add the letter to the list of guesses, sort that list.
    * @param letter - The letter that the user typed.
