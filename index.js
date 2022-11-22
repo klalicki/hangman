@@ -13,11 +13,17 @@ const selectWord = () => {
 /* the WordGame class contains all of the logic needed to play a single round of hangman */
 class WordGame {
   constructor(word, numberOfLives = 6) {
+    //number of lives remaining before the game is over
     this.livesRemaining = numberOfLives;
+    //string containing the word being used for the game
     this.word = word;
+    //length of the word - used for looping over it
     this.wordLength = word.length;
+    //an array containing the word, split into letters
     this.letters = word.split("");
+    //an array containing all of the letters that have been guessed so far
     this.guessedLetters = [];
+    //an array, that corresponds to this.letters, that tracks which letters have been correctly guessed in the word
     this.displayLetters = this.letters.map(() => {
       return "_";
     });
