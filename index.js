@@ -5,7 +5,7 @@ import wordBank from "./word-bank.js";
  * executes a round of the game.
  */
 const runGame = () => {
-  /* Helper functions:
+  /* List of Helper functions:
 selectWord()
 generateGameData()
 inputLetter()
@@ -49,7 +49,7 @@ renderGameData()
   /**
    * prompts the user to input a letter, and if the input is not a letter, prompts the user to
    * input a letter again. Returns the lowercase of that letter
-   * @returns A function that takes no arguments and returns a string.
+   * @returns A string containing one letter.
    */
   const inputLetter = () => {
     let isValidInput = false;
@@ -88,9 +88,9 @@ renderGameData()
   };
 
   /**
-   * Loops through the word and reveals the letter that was passed to it.
-   * This function edits the gameData object, and does not return anything.
-   * @param letter - the letter that was guessed
+   * It loops through the letters in the word and if the letter matches the letter that was guessed, it
+   * replaces the underscore with the letter
+   * @param letter - the letter that the user guessed
    */
   const revealLetter = (letter) => {
     gameData.letters.forEach((wordLetter, index) => {
