@@ -102,14 +102,14 @@ renderGameData()
 
   /**
    * this function renders the game interface, such as the number of lives remaining, list of letters guessed, etc
+   * this function is called at the start of each turn
    */
   const renderGameData = () => {
     console.clear();
-    console.log(
-      `remaining lives: ${"❤ ".repeat(gameData.livesRemaining)}${"- ".repeat(
+    console.log(`remaining lives: ${"❤ ".repeat(gameData.livesRemaining)}`);
+    /* ${"- ".repeat(
         6 - gameData.livesRemaining
-      )}`
-    );
+      )} */
     console.log(`word so far: ${gameData.displayLetters.join(" ")}`);
     console.log(`letters guessed so far: ${gameData.guessedLetters}`);
   };
