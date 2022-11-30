@@ -1,6 +1,7 @@
 import prompt from "readline-sync";
 import wordBank from "./word-bank.js";
 import pressAnyKey from "press-any-key";
+
 /**
  * Formats a string to render in color in the terminal
  * @param string - the string you want to color
@@ -36,14 +37,7 @@ const formatString = (string, ...codes) => {
  * executes a round of the game.
  */
 const runGame = () => {
-  /* List of Helper functions:
-selectWord()
-generateGameData()
-inputLetter()
-checkLetter()
-revealLetter()
-renderGameData()
-; */
+  //HELPER FUNCTIONS
 
   /**
    * Select a random word from the wordBank array and return it.
@@ -119,7 +113,7 @@ renderGameData()
   };
 
   /**
-   * It loops through the letters in the word and if the letter matches the letter that was guessed, it
+   * loops through the letters in the word and if the letter matches the letter that was guessed, it
    * replaces the underscore with the letter
    * @param letter - the letter that the user guessed
    */
@@ -132,7 +126,7 @@ renderGameData()
   };
 
   /**
-   * this function renders the game interface, such as the number of lives remaining, list of letters guessed, etc
+   * renders the game interface, such as the number of lives remaining, list of letters guessed, etc
    * this function is called at the start of each turn
    */
   const renderGameData = () => {
@@ -179,6 +173,7 @@ renderGameData()
       `You lost, sorry. The word was ${formatString(gameData.word, "bright")}`
     );
   } else {
+    //player has won
     console.log(
       `Congrats! you win! The word was ${formatString(
         gameData.word,
