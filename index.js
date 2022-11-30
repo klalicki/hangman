@@ -139,12 +139,12 @@ renderGameData()
     const livesString = "❤ ".repeat(gameData.livesRemaining);
     console.clear();
     [
+      formatString(" Hangman ┃", "bright"),
+      formatString("━━━━━━━━━┛", "bright"),
       formatString("current word: ", "yellow"),
       " " + gameData.displayLetters.join(" "),
-
       formatString("your guesses: ", "yellow"),
       " " + gameData.guessedLetters.join(" "),
-
       formatString("remaining lives: ", "yellow"),
       " " + formatString(livesString, "red"),
     ].forEach((item) => {
@@ -195,8 +195,8 @@ renderGameData()
 const runWelcome = () => {
   console.clear();
   [
-    formatString("Welcome to Hangman!", "bright"),
-    formatString("===================", "bright"),
+    formatString(" Welcome to Hangman!┃", "bright"),
+    formatString("━━━━━━━━━━━━━━━━━━━━┛", "bright"),
     "In this game, you will try to guess a word, one letter at a time.",
     "Each time you guess incorrectly, you lose a life.",
     "You start the game with 6 lives.",
