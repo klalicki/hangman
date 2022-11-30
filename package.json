@@ -13,5 +13,8 @@
   },
   "dependencies": {
     "readline-sync": "^1.4.10"
+  },
+  "devDependencies": {
+    "press-any-key": "^0.1.1"
   }
 }

@@ -1,5 +1,37 @@
 import prompt from "readline-sync";
 import wordBank from "./word-bank.js";
+import pressAnyKey from "press-any-key";
+/**
+ * Formats a string to render in color in the terminal
+ * @param string - the string you want to color
+ * @param color - The color you want to use.
+ * @returns a string with the color escape sequence added
+ */
+const formatString = (string, ...codes) => {
+  const consoleFormat = {
+    reset: "\x1b[0m",
+    bright: "\x1b[1m",
+    dim: "\x1b[2m",
+    underscore: "\x1b[4m",
+    reverse: "\x1b[7m",
+    black: "\x1b[30m",
+    red: "\x1b[31m",
+    green: "\x1b[32m",
+    yellow: "\x1b[33m",
+    blue: "\x1b[34m",
+    magenta: "\x1b[35m",
+    cyan: "\x1b[36m",
+    white: "\x1b[37m",
+    crimson: "\x1b[38m",
+  };
+  let formatCodes = "";
+  for (let item of codes) {
+    if (item in consoleFormat) {
+      formatCodes += consoleFormat[item];
+    }
+  }
+  return formatCodes + string + consoleFormat.reset;
+};
 
 /**
  * executes a round of the game.
@@ -106,15 +138,19 @@ renderGameData()
    */
   const renderGameData = () => {
     console.clear();
-    console.log(`remaining lives: ${"❤ ".repeat(gameData.livesRemaining)}`);
+    console.log(
+      `remaining lives: ${formatString(
+        "❤ ".repeat(gameData.livesRemaining),
+        "red"
+      )}`
+    );
 
-    console.log(`word so far: ${gameData.displayLetters.join(" ")}`);
-    console.log(`letters guessed so far: ${gameData.guessedLetters}`);
+    console.log(`current word: ${gameData.displayLetters.join(" ")}`);
+    console.log(`your guesses: ${gameData.guessedLetters}`);
   };
 
   //generate the gameData object
   let gameData = generateGameData();
-  console.log(gameData.word);
 
   // main game loop - repeats as long as there are guesses remaining and letters to be guessed.
   while (gameData.livesRemaining > 0 && gameData.displayLetters.includes("_")) {
@@ -133,6 +169,7 @@ renderGameData()
     }
   }
   //game is over! check if the player has won or lost
+  renderGameData();
   if (gameData.displayLetters.includes("_")) {
     //player has lost.
     console.log(`you lost, sorry. the word was ${gameData.word}`);
@@ -141,4 +178,27 @@ renderGameData()
   }
 };
 
-runGame();
+/**
+ * clears the console, prints out the welcome message, and then waits for the user to press any key
+ * before starting the game
+ */
+const runWelcome = () => {
+  console.clear();
+  [
+    formatString("Welcome to Hangman!", "bright"),
+    formatString("===================", "bright"),
+    "In this game, you will try to guess a word, one letter at a time.",
+    "Each time you guess incorrectly, you lose a life.",
+    "You start the game with 6 lives.",
+    "You can quit the game at any point by pressing Control+C",
+  ].forEach((item) => {
+    console.log(item);
+  });
+  pressAnyKey(
+    formatString("Press any key to start the game...", "bright")
+  ).then(() => {
+    runGame();
+  });
+};
+
+runWelcome();
