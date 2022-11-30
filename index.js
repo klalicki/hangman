@@ -195,7 +195,9 @@ const runWelcome = () => {
     "In this game, you will try to guess a word, one letter at a time.",
     "Each time you guess incorrectly, you lose a life.",
     "You start the game with 6 lives.",
-    "You can quit the game at any point by pressing Control+C",
+    "You can quit the game at any point by pressing " +
+      formatString("CTRL+C", "bright"),
+    "\n",
   ].forEach((item) => {
     console.log(item);
   });

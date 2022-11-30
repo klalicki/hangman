@@ -1,6 +1,6 @@
 # hangman
 
-First project for my JavaScript Fundamentals class - a terminal-based word game. This game follows the rules of Hangman: a random word is selected, and the user tries to guess all the letters of the word. The user is allowed 6 incorrect guesses before the game ends.
+First project for my JavaScript Fundamentals class - a terminal-based word game. This game follows the basic rules of [Hangman](<https://en.wikipedia.org/wiki/Hangman_(game)>).
 
 ## Requirements
 
@@ -22,3 +22,7 @@ npm install
 ## How to play
 
 To play the game, run `node .` or `node index.js`
+
+At the start of the game, a random word is selected from the word bank. The player attempts to guess the word, one letter at a time. If the guessed letter is part of the word, the game shows the player where in the word that letter exists. If the guessed letter is not part of the word, the player loses a life. The player starts the game with 6 lives, and the game ends when the player either has guessed all the letters of the word or reached 0 lives.
+
+To exit the game at any point, press `control+C`
