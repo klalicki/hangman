@@ -3,10 +3,12 @@ import wordBank from "./word-bank.js";
 import pressAnyKey from "press-any-key";
 
 /**
- * Formats a string to render in color in the terminal
- * @param string - the string you want to color
- * @param color - The color you want to use.
- * @returns a string with the color escape sequence added
+ * takes a string and a list of format codes, and formats the string to be rendered in color in the console.
+ * @param string - The string to be formatted.
+ * @param codes - strings that represent the formatting codes you want to apply to the
+ * string.
+ * @returns a string and a list of codes and returns a string with the codes
+ * applied.
  */
 const formatString = (string, ...codes) => {
   const consoleFormat = {
@@ -84,14 +86,21 @@ const runGame = () => {
       //validate input
       // test to make sure the input only contains letters
       if (!/[A-Za-z]/.test(input)) {
-        console.log("Invalid input: please input a letter");
+        console.log(
+          formatString("Invalid input: please input a letter", "red")
+        );
         //test to make sure only one letter
       } else if (input.length != 1) {
-        console.log("Invalid input: please input a letter");
+        console.log(
+          formatString("Invalid input: please input a letter", "red")
+        );
         //test to see if the letter has been guessed already
       } else if (gameData.guessedLetters.includes(input)) {
         console.log(
-          `You have already guessed ${input}. Try a different letter.`
+          formatString(
+            `You have already guessed ${input}. Try a different letter.`,
+            "red"
+          )
         );
       } else {
         return input;
@@ -135,11 +144,11 @@ const runGame = () => {
     [
       formatString(" Hangman ┃", "bright"),
       formatString("━━━━━━━━━┛", "bright"),
-      formatString("current word: ", "yellow"),
+      formatString("current word:", "yellow"),
       " " + gameData.displayLetters.join(" "),
-      formatString("your guesses: ", "yellow"),
+      formatString("your guesses:", "yellow"),
       " " + gameData.guessedLetters.join(" "),
-      formatString("remaining lives: ", "yellow"),
+      formatString("remaining lives:", "yellow"),
       " " + formatString(livesString, "red"),
     ].forEach((item) => {
       console.log(item);
