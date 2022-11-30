@@ -22,7 +22,6 @@ const formatString = (string, ...codes) => {
     magenta: "\x1b[35m",
     cyan: "\x1b[36m",
     white: "\x1b[37m",
-    crimson: "\x1b[38m",
   };
   let formatCodes = "";
   for (let item of codes) {
@@ -137,16 +136,20 @@ renderGameData()
    * this function is called at the start of each turn
    */
   const renderGameData = () => {
+    const livesString = "❤ ".repeat(gameData.livesRemaining);
     console.clear();
-    console.log(
-      `remaining lives: ${formatString(
-        "❤ ".repeat(gameData.livesRemaining),
-        "red"
-      )}`
-    );
+    [
+      formatString("current word: ", "yellow"),
+      " " + gameData.displayLetters.join(" "),
 
-    console.log(`current word: ${gameData.displayLetters.join(" ")}`);
-    console.log(`your guesses: ${gameData.guessedLetters}`);
+      formatString("your guesses: ", "yellow"),
+      " " + gameData.guessedLetters.join(" "),
+
+      formatString("remaining lives: ", "yellow"),
+      " " + formatString(livesString, "red"),
+    ].forEach((item) => {
+      console.log(item);
+    });
   };
 
   //generate the gameData object
@@ -172,9 +175,16 @@ renderGameData()
   renderGameData();
   if (gameData.displayLetters.includes("_")) {
     //player has lost.
-    console.log(`you lost, sorry. the word was ${gameData.word}`);
+    console.log(
+      `You lost, sorry. The word was ${formatString(gameData.word, "bright")}`
+    );
   } else {
-    console.log(`congrats! you win! the word was ${gameData.word} :)`);
+    console.log(
+      `Congrats! you win! The word was ${formatString(
+        gameData.word,
+        "bright"
+      )} :)`
+    );
   }
 };
 
